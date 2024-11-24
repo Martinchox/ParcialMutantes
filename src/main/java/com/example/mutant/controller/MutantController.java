@@ -19,12 +19,16 @@ public class MutantController {
 
     @PostMapping("/")
     public ResponseEntity<?> isMutant(@RequestBody List<String> dna) {
+        String sequence = String.join(",", dna);
+        
         boolean isMutant = mutantService.isMutant(dna);
+        mutantService.saveDna(sequence, isMutant);
 
         if (isMutant) {
-            return ResponseEntity.ok("Mutante detectado!");
+            return ResponseEntity.ok("Mutantw detectado!");
         } else {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("No es mutante.");
         }
     }
 }
+
